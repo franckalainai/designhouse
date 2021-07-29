@@ -1,5 +1,7 @@
 <?php
 // Public routes
+Route::get('me', 'User\MeController@getMe');
+
 // Route group to authenticated users only
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
