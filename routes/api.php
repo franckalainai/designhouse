@@ -5,6 +5,9 @@ Route::get('me', 'User\MeController@getMe');
 // Route group to authenticated users only
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
+
+    Route::put('settings/profile', 'User\SettingsController@updateProfile');
+    Route::put('settings/password', 'User\SettingsController@updatePassword');
 });
 
 // Routes for guest only
