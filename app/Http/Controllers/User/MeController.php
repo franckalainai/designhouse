@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class MeController extends Controller
 {
@@ -11,7 +13,9 @@ class MeController extends Controller
     {
         // si la l'utilisateur est connéectée
         if (auth()->check()) {
-            return response()->json(["user" => auth()->user()], 200);
+            $user = auth()->user();
+            return new UserResource($user);
+            //return response()->json(["user" => $user], 200);
         }
         // s'il n'ya pas d'utilisateur connecté
         return response()->json(null, 401);

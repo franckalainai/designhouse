@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
@@ -56,6 +57,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         $this->notify(new VerifyEmail);
     }
 
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
